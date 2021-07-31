@@ -1,0 +1,9 @@
+﻿{
+    "Keys": ["tugs-maps"],
+    "Provider": "TiMap",
+    "Version": 100,
+    "Experimental": false,
+    "Features": [
+        "OnlineMappingFeature"
+    ]
+}
