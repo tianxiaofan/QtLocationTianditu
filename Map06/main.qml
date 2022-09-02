@@ -52,7 +52,7 @@ Window {
         Map {
             anchors.fill: parent
             plugin: Plugin {
-                name: "TiMap"
+                name: "esri"
                 PluginParameter {
                     name: "mapProvider"
                     value: "tiandituImg"

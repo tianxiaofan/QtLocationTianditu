@@ -1,4 +1,4 @@
-/**************************************************************************
+﻿/**************************************************************************
  *   文件名	：tidataworker.cpp
  *   =======================================================================
  *   创 建 者	：田小帆
@@ -51,9 +51,9 @@ void TiDataWorker::writeSql(QSharedPointer<TiMapTile> tile)
 
 void TiDataWorker::readTile(QSharedPointer<TiMapTile> tile)
 {
-    //读取时,如果发现query是活动的,则不进行读取
-    if (!m_query || m_query->isActive())
-        return;
+    //    //读取时,如果发现query是活动的,则不进行读取
+    //    if (!m_query || m_query->isActive())
+    //        return;
 
     if (!m_valid) {
         m_valid = openDB(m_dbName);
@@ -65,6 +65,7 @@ void TiDataWorker::readTile(QSharedPointer<TiMapTile> tile)
             if (m_query->next()) {
                 tile->byte   = m_query->value(0).toByteArray();
                 tile->format = m_query->value(1).toString();
+                m_query->finish();
             }
         }
     }
@@ -94,6 +95,7 @@ void TiDataWorker::timeout()
     } else {
         // Map数据已存在于数据库
     }
+    m_query->finish();
 }
 
 bool TiDataWorker::openDB(const QString& name)

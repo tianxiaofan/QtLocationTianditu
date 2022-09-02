@@ -94,7 +94,7 @@ QSharedPointer<QGeoTileTexture> TiQGeoFileTileCache::getFromSqlite(const QGeoTil
     //阻塞等待返回,因为读取数据非常快,阻塞没有影响
     QMetaObject::invokeMethod(TiMapEngine::instance()->getSqlThread(), "readTile",
                               Qt::BlockingQueuedConnection, Q_ARG(QSharedPointer<TiMapTile>, tile));
-    qDebug() << "read time:" << clock() - start;
+    qDebug() << "read time:" << clock() - start << "ms";
     if (tile->byte.isEmpty())
         return QSharedPointer<QGeoTileTexture>();
 
