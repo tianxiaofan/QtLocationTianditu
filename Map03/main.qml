@@ -20,12 +20,15 @@ Window {
         zoomLevel: 14
 
         // The code below enables SSAA
+//        layer.enabled: true
+//        layer.smooth: true
+//        property int w : width
+//        property int h : height
+//        property int pr: Screen.devicePixelRatio
+//        layer.textureSize: Qt.size(w  * 2 * pr, h * 2 * pr)
+
         layer.enabled: true
-        layer.smooth: true
-        property int w : width
-        property int h : height
-        property int pr: Screen.devicePixelRatio
-        layer.textureSize: Qt.size(w  * 2 * pr, h * 2 * pr)
+        layer.samples: 8
 
         Component.onCompleted: {
             for(let i = 0;i < supportedMapTypes.length;i++)
@@ -40,9 +43,9 @@ Window {
             console.log("activeMapType: " + activeMapType.name)
 
             //添加一个圆
-            map.addMapItem(circle)
+//            map.addMapItem(circle)
 //            map.addMapItem(polygon)
-//            map.addMapItem(lines)
+            map.addMapItem(lines)
 //            map.addMapItem(rect)
         }
     }
@@ -52,7 +55,7 @@ Window {
         center: QtPositioning.coordinate(34.23,108.87)
         radius: 100
         border.width: 2
-        border.color: "yellow"
+        border.color: "green"
 //        color: "green"
 
         MouseArea {

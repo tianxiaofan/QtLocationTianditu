@@ -59,3 +59,28 @@ protected:
     QString getURL(const int x, const int y, const int zoom,
                    QNetworkAccessManager* networkManager) override;
 };
+
+///
+/// \brief The TiTiandituVecMapProvider class 天地图失量底图
+///
+class TiTiandituVecMapProvider : public TiTiandituMapProvider
+{
+public:
+    TiTiandituVecMapProvider(QObject* parent = nullptr);
+    ~TiTiandituVecMapProvider();
+
+protected:
+    QString getURL(const int x, const int y, const int zoom,
+                   QNetworkAccessManager* networkManager) override;
+};
+class TiTiandituCvaMapProvider : public TiTiandituMapProvider
+{
+public:
+    TiTiandituCvaMapProvider(QObject* parent = nullptr);
+    ~TiTiandituCvaMapProvider();
+
+protected:
+    QString getURL(const int x, const int y, const int zoom,
+                   QNetworkAccessManager* networkManager) override;
+};
+

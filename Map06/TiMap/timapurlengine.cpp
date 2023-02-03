@@ -21,8 +21,10 @@
 
 TiMapUrlEngine::TiMapUrlEngine(QObject* parent) : QObject(parent)
 {
-    m_provides["Tianditu Satellite"] = new TiTiandituImgMapProvider(this); //天地图卫星图
-    m_provides["Tianditu Street"] = new TiTiandituCiaMapProvider(this); //天地图路网标注信息图
+    m_provides["Tianditu Img"] = new TiTiandituImgMapProvider(this); //天地图卫星图
+    m_provides["Tianditu Cia"] = new TiTiandituCiaMapProvider(this); //天地图路网标注信息图
+    m_provides["Tianditu Vec"] = new TiTiandituVecMapProvider(this);//失量图
+    m_provides["Tianditu Cva"] = new TiTiandituCvaMapProvider(this);//失量图标注
 }
 
 QStringList TiMapUrlEngine::getProviderNameList() const

@@ -1,4 +1,4 @@
-import QtQuick 2.12
+﻿import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtLocation 5.12
 import QtPositioning 5.12
@@ -36,23 +36,22 @@ Window {
         center: QtPositioning.coordinate(34.23,108.87) // xi`an
         zoomLevel: 14
 
-        // The code below enables SSAA
+        // from : https://stackoverflow.com/a/49576756
         layer.enabled: true
-        layer.smooth: true
-        property int w : width
-        property int h : height
-        property int pr: Screen.devicePixelRatio
-        layer.textureSize: Qt.size(w  * 2 * pr, h * 2 * pr)
+        layer.samples: 8
 
         Component.onCompleted: {
-            updateActiveMapType(map,"Tianditu Satellite");
+            // 卫星图
+//            updateActiveMapType(map,"Tianditu Img");
+            // 失量图
+            updateActiveMapType(map,"Tianditu Vec");
         }
 
         //叠加标注信息图层
         Map {
             anchors.fill: parent
             plugin: Plugin {
-                name: "esri"
+                name: "TiMap"
                 PluginParameter {
                     name: "mapProvider"
                     value: "tiandituImg"
@@ -77,9 +76,31 @@ Window {
             fieldOfView: parent.fieldOfView
             z: parent.z + 1;
             Component.onCompleted: {
-                updateActiveMapType(this,"Tianditu Street");
+                // 卫星图 标注
+//                updateActiveMapType(this,"Tianditu Cia");
+                // 失量图 标注
+                updateActiveMapType(this,"Tianditu Cva");
             }
 
+        }
+
+        MapCircle {
+            id: circle
+            center: QtPositioning.coordinate(34.23,108.87)
+            radius: 500
+            border.width: 3
+            border.color: "yellow"
+            layer.enabled: true
+            layer.smooth: true
+            property int w : width
+            property int h : height
+            property int pr: Screen.devicePixelRatio
+            layer.textureSize: Qt.size(w  * 2 * pr, h * 2 * pr)
+
+            MouseArea {
+                anchors.fill: parent
+                drag.target: parent
+            }
         }
     }
 
