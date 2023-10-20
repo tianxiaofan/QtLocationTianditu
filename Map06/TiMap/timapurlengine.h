@@ -5,9 +5,9 @@
  *   创建日期	：2021-6-17
  *   邮   箱	：499131808@qq.com
  *   Q Q		：499131808
- *   公   司      
+ *   公   司      ：
  *   功能描述      ：
- *   使用说明 ：
+ *   
  *   ======================================================================
  *   修改者	：
  *   修改日期	：
@@ -43,6 +43,9 @@ public:
                                               QNetworkAccessManager* networkManager) const;
     QNetworkRequest                getTileUrl(const QString& type, int x, int y, int zoom,
                                               QNetworkAccessManager* networkManager) const;
+    QString                        getImageFormat(QString type, const QByteArray& image);
+    QString                        getImageFormat(int id, const QByteArray& image);
+    bool                           isElevation(int mapId);
 
 private:
     QHash<QString, TiMapProvider*> m_provides;

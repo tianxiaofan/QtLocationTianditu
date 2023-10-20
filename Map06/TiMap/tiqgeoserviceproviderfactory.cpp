@@ -5,9 +5,9 @@
  *   创建日期	：2021-4-27
  *   邮   箱	：499131808@qq.com
  *   Q Q		：499131808
- *   公   司      
+ *   公   司      ：
  *   功能描述      ：
- *   使用说明 ：
+ *   
  *   ======================================================================
  *   修改者	：
  *   修改日期	：
@@ -18,7 +18,7 @@
 #include "tiqgeoserviceproviderfactory.h"
 #include "tiqgeotiledmappingmanagerengine.h"
 #include "tiqgeocodingmanagerengine.h"
-#include <QDebug>
+#include "tilogger.h"
 
 #ifdef MyMapPlugin_Static
 Q_EXTERN_C Q_DECL_EXPORT const char* qt_plugin_query_metadata();

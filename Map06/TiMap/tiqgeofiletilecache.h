@@ -5,9 +5,9 @@
  *   创建日期	：2021-5-13
  *   邮   箱	：499131808@qq.com
  *   Q Q		：499131808
- *   公   司      
+ *   公   司      ：
  *   功能描述      ：
- *   使用说明 ：
+ *   
  *   ======================================================================
  *   修改者	：
  *   修改日期	：
@@ -24,7 +24,6 @@
 
 class TiQGeoFileTileCache : public QGeoFileTileCache
 {
-    Q_OBJECT
 public:
     TiQGeoFileTileCache(const QString& directory = QString(), QObject* parent = nullptr);
     ~TiQGeoFileTileCache();
@@ -39,9 +38,13 @@ private:
 
     QSharedPointer<QGeoTileTexture> getFromSqlite(const QGeoTileSpec& spec);
 
+    //由于qtlocation提供的qhash计算出现错误的机率较大,因此我们自已计算hash
+    static quint64 getTileHash(int type, int x, int y, int z);
+
+    bool openSqlite(const QString& connectId);
 
 private:
     QSqlDatabase* m_db     = nullptr;
     bool          m_valid  = false;
-    QString       m_dbName = "TUGSMapCache.db";
+    QString       m_dbName = "TiMapCache.db";
 };

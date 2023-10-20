@@ -5,9 +5,9 @@
  *   创建日期	：2021-5-17
  *   邮   箱	：499131808@qq.com
  *   Q Q		：499131808
- *   公   司      
+ *   公   司      ：
  *   功能描述      ：
- *   使用说明 ：
+ *   
  *   ======================================================================
  *   修改者	：
  *   修改日期	：
@@ -16,7 +16,7 @@
  *
  ***************************************************************************/
 #include "tiqgeocodereply.h"
-#include <QDebug>
+#include "tilogger.h"
 
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -54,7 +54,7 @@ void TiQGeoCodeReply::networkReplyFinish()
     if (object.value(sta) != QStringLiteral("OK")) {
         QString error = object.value(sta).toString();
 
-        qDebug() << m_reply->url() << "returned :" << error;
+        LOG_DEBUG() << m_reply->url() << "returned :" << error;
 
         setError(QGeoCodeReply::CommunicationError, error);
         m_reply->deleteLater();

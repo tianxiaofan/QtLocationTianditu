@@ -1,5 +1,5 @@
 ﻿{
-    "Keys": ["tugs-maps"],
+    "Keys": ["TiMap-maps"],
     "Provider": "TiMap",
     "Version": 100,
     "Experimental": false,

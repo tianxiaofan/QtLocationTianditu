@@ -5,9 +5,9 @@
  *   创建日期	：2021-4-27
  *   邮   箱	：499131808@qq.com
  *   Q Q		：499131808
- *   公   司      
+ *   公   司      ：
  *   功能描述      ：
- *   使用说明 ：
+ *   
  *   ======================================================================
  *   修改者	：
  *   修改日期	：
@@ -18,7 +18,7 @@
 #include "tiqgeotiledmappingmanagerengine.h"
 #include "tigeotilefetcher.h"
 #include <private/qgeofiletilecache_p.h>
-#include <QDebug>
+#include "tilogger.h"
 #include "tiqgeofiletilecache.h"
 
 #include "timapengine.h"
@@ -53,7 +53,6 @@ TiQGeoTiledMappingManagerEngine::TiQGeoTiledMappingManagerEngine(const QVariantM
     while (i != _mapProviders.end()) {
         _mapList << GCS_MAP_TYPE(i.value()->getMapStyle(), i.key(), i.key(), false, false,
                                  TiMapEngine::instance()->getUrlEngine()->getIdFromType(i.key()));
-        qDebug() << i.key() << i.value()->getMapStyle();
         ++i;
     }
 
@@ -68,11 +67,11 @@ TiQGeoTiledMappingManagerEngine::TiQGeoTiledMappingManagerEngine(const QVariantM
     QString cacheDirectory;
     QString _cache = "cachePath";
     if (parameters.contains(_cache)) {
-        cacheDirectory = parameters.value(_cache).toString();
+        cacheDirectory = TiMapEngine::instance()->getDBPath();
     } else {
         cacheDirectory = QAbstractGeoTileCache::baseLocationCacheDirectory() + QString("MapCache");
     }
-    qDebug() << cacheDirectory;
+    LOG_DEBUG() << cacheDirectory;
 
     //设置地图缓冲,如果不需要缓存,可设置setMaxDiskUsage 大小,限制到小内存,,
     //无法 注释setTileCache(); 注释后会默认缓冲图片

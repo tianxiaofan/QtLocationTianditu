@@ -5,9 +5,9 @@
  *   创建日期	：2021-6-16
  *   邮   箱	：499131808@qq.com
  *   Q Q		：499131808
- *   公   司      
+ *   公   司      ：
  *   功能描述      ：
- *   使用说明 ：
+ *   
  *   ======================================================================
  *   修改者	：
  *   修改日期	：
@@ -21,7 +21,8 @@
 class TiTiandituMapProvider : public TiMapProvider
 {
 public:
-    TiTiandituMapProvider(const QGeoMapType::MapStyle mapType = QGeoMapType::CustomMap,
+    TiTiandituMapProvider(const QString& format, const quint32 averageSize,
+                          const QGeoMapType::MapStyle mapType = QGeoMapType::CustomMap,
                           QObject*                    parent  = nullptr);
 
     // TiMapProvider interface
@@ -70,7 +71,9 @@ public:
     ~TiTiandituVecMapProvider();
 
 protected:
-    QString getURL(const int x, const int y, const int zoom,
+    QString getURL(const int              x,
+                   const int              y,
+                   const int              zoom,
                    QNetworkAccessManager* networkManager) override;
 };
 class TiTiandituCvaMapProvider : public TiTiandituMapProvider
@@ -80,7 +83,8 @@ public:
     ~TiTiandituCvaMapProvider();
 
 protected:
-    QString getURL(const int x, const int y, const int zoom,
+    QString getURL(const int              x,
+                   const int              y,
+                   const int              zoom,
                    QNetworkAccessManager* networkManager) override;
 };
-

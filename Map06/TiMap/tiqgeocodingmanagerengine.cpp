@@ -5,9 +5,9 @@
  *   创建日期	：2021-5-17
  *   邮   箱	：499131808@qq.com
  *   Q Q		：499131808
- *   公   司      
+ *   公   司      ：
  *   功能描述      ：
- *   使用说明 ：
+ *   
  *   ======================================================================
  *   修改者	：
  *   修改日期	：
@@ -17,7 +17,7 @@
  ***************************************************************************/
 #include "tiqgeocodingmanagerengine.h"
 #include "tiqgeocodereply.h"
-#include <QDebug>
+#include "tilogger.h"
 
 #include <QGeoAddress>
 #include <QGeoRectangle>
@@ -48,7 +48,7 @@ TiQGeoCodingManagerEngine::TiQGeoCodingManagerEngine(const QVariantMap&         
                                                      QString*                    errorString) :
     QGeoCodingManagerEngine(parameters), m_networkManager(new QNetworkAccessManager(this))
 {
-    qDebug() << parameters;
+    LOG_DEBUG() << parameters;
     if (parameters.contains(user_agent))
         m_userAgent = parameters.value(user_agent).toString().toLatin1();
     else

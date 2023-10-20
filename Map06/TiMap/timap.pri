@@ -5,9 +5,13 @@ CONFIG += c++11
 DEFINES += MyMapPlugin_Static
 
 SOURCES += \
-        $$PWD/tidataworker.cpp \
+        $$PWD/tibingmapprovider.cpp \
+        $$PWD/tiesrimapprovider.cpp \
         $$PWD/tigeotilefetcher.cpp \
+        $$PWD/tigooglemapprovider.cpp \
+        $$PWD/timapcacheworker.cpp \
         $$PWD/timapengine.cpp \
+        $$PWD/timapjsonengine.cpp \
         $$PWD/timapprovider.cpp \
         $$PWD/timapurlengine.cpp \
         $$PWD/tiqgeoserviceproviderfactory.cpp \
@@ -19,10 +23,14 @@ SOURCES += \
         $$PWD/titianditumapprovider.cpp
 
 HEADERS += \
-        $$PWD/TiMapTile.h \
-        $$PWD/tidataworker.h \
+        $$PWD/tibingmapprovider.h \
+        $$PWD/tiesrimapprovider.h \
         $$PWD/tigeotilefetcher.h \
+        $$PWD/tigooglemapprovider.h \
+        $$PWD/timapcacheworker.h \
         $$PWD/timapengine.h \
+        $$PWD/timapenginedata.h \
+        $$PWD/timapjsonengine.h \
         $$PWD/timapprovider.h \
         $$PWD/timapurlengine.h \
         $$PWD/tiqgeoserviceproviderfactory.h \

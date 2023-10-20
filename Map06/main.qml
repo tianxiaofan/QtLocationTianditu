@@ -9,6 +9,7 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
+    // 支持图源： 参见： timapurlengine.cpp
     Map {
         id:map
         //覆盖parent,采用依靠在bottom,自己去关联map大小
@@ -18,20 +19,6 @@ Window {
 
         plugin:Plugin {
             name: "TiMap"
-            PluginParameter {
-                name: "mapProvider"
-                value: "tiandituImg"
-            }
-            PluginParameter {
-                name: "format"
-                value: "png"
-            }
-            //弃用,缓存已使用数据库,代码内默认了数据库存放于程序运行当前目录
-            PluginParameter{
-                name: "cachePath"
-                value:"C:/Users/txf/AppData/Local/cache"
-            }
-
         }
         center: QtPositioning.coordinate(34.23,108.87) // xi`an
         zoomLevel: 14
@@ -52,14 +39,6 @@ Window {
             anchors.fill: parent
             plugin: Plugin {
                 name: "TiMap"
-                PluginParameter {
-                    name: "mapProvider"
-                    value: "tiandituImg"
-                }
-                PluginParameter {
-                    name: "format"
-                    value: "png"
-                }
             }
             gesture.enabled: false
             center: parent.center

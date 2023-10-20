@@ -23,3 +23,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 include($$PWD/TiMap/timap.pri)
+include($$PWD/Log/tilogger.pri)
+

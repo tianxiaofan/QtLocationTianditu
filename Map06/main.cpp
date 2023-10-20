@@ -1,4 +1,4 @@
-/**************************************************************************
+﻿/**************************************************************************
  *   文件名	：%{Cpp:License:FileName}
  *   =======================================================================
  *   创 建 者	：田小帆
@@ -19,10 +19,13 @@
 #include <QQmlApplicationEngine>
 #ifdef MyMapPlugin_Static
 #include <QtPlugin>
+#include "tilogger.h"
 #endif
 
 int main(int argc, char *argv[])
 {
+    TILOGGER->writeToConsole(true);
+
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
