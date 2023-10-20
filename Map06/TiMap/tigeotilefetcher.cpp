@@ -45,9 +45,12 @@ TiGeoTileFetcher::TiGeoTileFetcher(const QVariantMap& parameters, QGeoMappingMan
 //重写QGeoTileFetcher 的虚函数,由QGeoTileFetcher 调用
 QGeoTiledMapReply* TiGeoTileFetcher::getTileImage(const QGeoTileSpec& spec)
 {
-    QNetworkRequest request = TiMapEngine::instance()->getUrlEngine()->getTileUrl(
-            spec.mapId(), spec.x(), spec.y(), spec.zoom(), m_networkManager);
-    //    qDebug() << request.url();
+    QNetworkRequest request = TiMapEngine::instance()->getUrlEngine()->getTileUrl(spec.mapId(),
+                                                                                  spec.x(),
+                                                                                  spec.y(),
+                                                                                  spec.zoom(),
+                                                                                  m_networkManager);
+    //    qDebug() << request.url() << request.rawHeaderList();
     QNetworkReply* reply = m_networkManager->get(request);
 
     return new TiQGeoTiledMapReply(reply, spec, m_format);

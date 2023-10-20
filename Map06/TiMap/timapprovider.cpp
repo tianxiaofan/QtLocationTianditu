@@ -30,7 +30,11 @@ QNetworkRequest TiMapProvider::getTileURL(const int x, const int y, const int zo
     if (url.isEmpty())
         return request;
 
-    request.setRawHeader(QByteArrayLiteral("Accept"), QByteArrayLiteral("*/*"));
+    request.setRawHeader(QByteArrayLiteral("Accept"), QByteArrayLiteral("text/html,image/*"));
+    request.setRawHeader(QByteArrayLiteral("User-Agent"),
+                         QByteArrayLiteral(
+                             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, "
+                             "like Gecko) Chrome/96.0.4664.45 Safari/537.36"));
     request.setUrl(QUrl(url));
     return request;
 }

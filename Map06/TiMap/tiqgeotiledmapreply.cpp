@@ -43,6 +43,7 @@ void TiQGeoTiledMapReply::networkReplyFinished()
         return;
 
     setMapImageData(reply->readAll());
+    qDebug() << mapImageData().size();
     setFinished(true);
 }
 
