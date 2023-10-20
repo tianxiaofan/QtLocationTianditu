@@ -25,3 +25,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 include($$PWD/TiMap/timap.pri)
 include($$PWD/Log/tilogger.pri)
 
+#添加一些其它文件，如readme
+OTHER_FILES += \
+    $$PWD/README.md
+
+
+

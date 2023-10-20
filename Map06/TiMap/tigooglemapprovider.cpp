@@ -19,6 +19,7 @@
 
 #include <QNetworkProxy>
 #include <QNetworkReply>
+#include <QRegExp>
 
 TiGoogleMapProvider::TiGoogleMapProvider(const QString& format, const quint32 averageSize,
                                          const QGeoMapType::MapStyle mapType, QObject* parent) :
