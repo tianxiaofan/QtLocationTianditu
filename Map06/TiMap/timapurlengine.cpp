@@ -24,59 +24,76 @@
 
 TiMapUrlEngine::TiMapUrlEngine(QObject* parent) : QObject(parent)
 {
-    m_provides["Tianditu Img"] = new TiTiandituImgMapProvider(this); //天地图卫星图
-    m_provides["Tianditu Cia"] = new TiTiandituCiaMapProvider(this); //天地图路网标注信息图
-    m_provides["Tianditu Vec"] = new TiTiandituVecMapProvider(this); //失量图
-    m_provides["Tianditu Cva"] = new TiTiandituCvaMapProvider(this); //失量图标注
+    m_providerNameList["Bing Road"] = "";
+    m_providerNameList["Bing Satellite"] = "";
+    m_providerNameList["Bing Hybrid"] = "";
+    m_providerNameList["Google Street Map"] = "";
+    m_providerNameList["Google Satellite"] = "";
+    m_providerNameList["Google Terrain"] = "";
+    m_providerNameList["Google Hybrid"] = "";
+    m_providerNameList["Google Labels"] = "";
+    m_providerNameList["Tianditu Satellite"] = "Tianditu Satellite Road";
+    m_providerNameList["Tianditu Street"] = "Tianditu Street Road";
 
-    m_provides["Google Street Map"] = new TiGoogleStreetMapProvider(this);
-    m_provides["Google Satellite"]  = new TiGoogleSatelliteMapProvider(this);
-    m_provides["Google Terrain"]    = new TiGoogleTerrainMapProvider(this);
-    m_provides["Google Hybrid"]     = new TiGoogleHybridMapProvider(this);
-    m_provides["Google Labels"]     = new TiGoogleTerrainMapProvider(this);
+    m_providerList.append(
+        ProviderPair("Tianditu Satellite", new TiTiandituImgMapProvider(this))); //天地图卫星图
+    m_providerList.append(ProviderPair("Tianditu Satellite Road",
+                                       new TiTiandituCiaMapProvider(this))); //天地图路网标注信息图
+    m_providerList.append(
+        ProviderPair("Tianditu Street", new TiTiandituVecMapProvider(this))); //失量图
+    m_providerList.append(
+        ProviderPair("Tianditu Street Road", new TiTiandituCvaMapProvider(this))); //失量图标注
 
-    m_provides["Esri World Street"]    = new TiEsriWorldStreetMapProvider(this);
-    m_provides["Esri World Satellite"] = new TiEsriWorldSatelliteMapProvider(this);
-    m_provides["Esri Terrain"]         = new TiEsriTerrainMapProvider(this);
+    m_providerList.append(ProviderPair("Google Street Map", new TiGoogleStreetMapProvider(this)));
+    m_providerList.append(ProviderPair("Google Satellite", new TiGoogleSatelliteMapProvider(this)));
+    m_providerList.append(ProviderPair("Google Terrain", new TiGoogleTerrainMapProvider(this)));
+    m_providerList.append(ProviderPair("Google Hybrid", new TiGoogleHybridMapProvider(this)));
+    m_providerList.append(ProviderPair("Google Labels", new TiGoogleTerrainMapProvider(this)));
 
-    m_provides["Bing Road"]      = new TiBingRoadMapProvider(this);
-    m_provides["Bing Satellite"] = new TiBingSatelliteMapProvider(this);
-    m_provides["Bing Hybrid"]    = new TiBingHybridMapProvider(this);
+    m_providerList.append(ProviderPair("Bing Road", new TiBingRoadMapProvider(this)));
+    m_providerList.append(ProviderPair("Bing Satellite", new TiBingSatelliteMapProvider(this)));
+    m_providerList.append(ProviderPair("Bing Hybrid", new TiBingHybridMapProvider(this)));
 }
 
-QStringList TiMapUrlEngine::getProviderNameList() const
+QMap<QString, QString> TiMapUrlEngine::getProviderNameList() const
 {
-    return m_provides.keys();
+    return m_providerNameList;
 }
 
 QString TiMapUrlEngine::getTypeFromId(const int id) const
 {
-    auto i = m_provides.constBegin();
-    while (i != m_provides.constEnd()) {
-        if ((int)(qHash(i.key()) >> 1) == id)
-            return i.key();
-        ++i;
+    if (id >= 1 && id <= m_providerList.size()) {
+        return m_providerList.at(id - 1).first;
+    } else {
+        return m_providerList.at(0).first;
     }
-    return QString();
 }
 
-// qhash为uint,转int会超int范围,右移一位缩小一倍
 int TiMapUrlEngine::getIdFromType(const QString& type) const
 {
-    return (int)(qHash(type) >> 1);
+    for (int i = 0; i < m_providerList.size(); i++) {
+        if (m_providerList.at(i).first == type) {
+            return i + 1;
+        }
+    }
+    return 1;
 }
 
 TiMapProvider* TiMapUrlEngine::getMapProviderFromId(int id) const
 {
-    QString _type = getTypeFromId(id);
-    return getMapProviderFromType(_type);
+    if (id >= 1 && id <= m_providerList.count()) {
+        return m_providerList.at(id - 1).second;
+    } else {
+        return nullptr;
+    }
 }
 
 TiMapProvider* TiMapUrlEngine::getMapProviderFromType(const QString& type) const
 {
-    if (!type.isEmpty()) {
-        if (m_provides.find(type) != m_provides.end())
-            return m_provides[type];
+    for (int i = 0; i < m_providerList.size(); i++) {
+        if (m_providerList.at(i).first == type) {
+            return m_providerList.at(i).second;
+        }
     }
     return nullptr;
 }

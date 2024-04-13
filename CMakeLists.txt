@@ -1,0 +1,7 @@
+﻿cmake_minimum_required(VERSION 3.16)
+project(QtLocationTianditu VERSION 0.1 LANGUAGES CXX)
+add_subdirectory(Map01)
+add_subdirectory(Map02)
+add_subdirectory(Map03)
+add_subdirectory(Map04)
+add_subdirectory(Map06)

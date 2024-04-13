@@ -17,27 +17,17 @@
  ***************************************************************************/
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#ifdef MyMapPlugin_Static
-#include <QtPlugin>
+
 #include "tilogger.h"
-#endif
 
 int main(int argc, char *argv[])
 {
-    TILOGGER->writeToConsole(true);
-
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-#endif
-
-#ifdef MyMapPlugin_Static
-    Q_IMPORT_PLUGIN(TiQeoServiceProviderFactory);
-#endif
 
     QGuiApplication app(argc, argv);
+    TILOGGER->writeToConsole(true);
 
     QQmlApplicationEngine engine;
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
             &app, [url](QObject *obj, const QUrl &objUrl) {
                 if (!obj && url == objUrl)

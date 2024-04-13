@@ -70,7 +70,6 @@ void TiLogger::writeMsg(QtMsgType type, const QMessageLogContext& context, const
             m_file.setFileName(newfileName);
             m_file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
             m_textStream.setDevice(&m_file);
-            m_textStream.setCodec("UTF-8");
         }
         m_textStream << writemsg << Qt::endl;
         m_textStream.flush();

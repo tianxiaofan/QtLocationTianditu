@@ -32,9 +32,9 @@ class TiMapUrlEngine : public QObject
     Q_OBJECT
 public:
     TiMapUrlEngine(QObject* parent = nullptr);
+    typedef QPair<QString, TiMapProvider*> ProviderPair;
 
-    QHash<QString, TiMapProvider*> getProviderTable() const { return m_provides; }
-    QStringList                    getProviderNameList() const;
+    QMap<QString, QString> getProviderNameList() const;
     QString                        getTypeFromId(const int id) const;
     int                            getIdFromType(const QString& type) const;
     TiMapProvider*                 getMapProviderFromId(int id) const;
@@ -48,6 +48,7 @@ public:
     bool                           isElevation(int mapId);
 
 private:
-    QHash<QString, TiMapProvider*> m_provides;
+    QList<ProviderPair> m_providerList;
+    QMap<QString, QString> m_providerNameList;
 };
 

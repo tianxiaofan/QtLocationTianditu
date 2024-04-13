@@ -1,7 +1,7 @@
 ﻿import QtQuick 2.0
 import QtQuick.Window 2.14
-import QtLocation 5.6
-import QtPositioning 5.6
+import QtLocation 6.5
+import QtPositioning 6.5
 
 Window {
     visible: true
@@ -10,7 +10,12 @@ Window {
 
     Plugin {
         id: mapPlugin
-        name: "esri" // "mapboxgl", "esri", ...
+        name: "osm" // "mapboxgl", "esri", ...
+        // specify plugin parameters if necessary
+        // PluginParameter {
+        //     name:
+        //     value:
+        // }
     }
 
     Map {

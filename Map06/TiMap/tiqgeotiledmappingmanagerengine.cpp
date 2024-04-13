@@ -17,9 +17,10 @@
  ***************************************************************************/
 #include "tiqgeotiledmappingmanagerengine.h"
 #include "tigeotilefetcher.h"
-#include <private/qgeofiletilecache_p.h>
 #include "tilogger.h"
 #include "tiqgeofiletilecache.h"
+#include <private/qgeocameracapabilities_p.h>
+#include <private/qgeofiletilecache_p.h>
 
 #include "timapengine.h"
 #include "timapprovider.h"
@@ -34,26 +35,34 @@ TiQGeoTiledMappingManagerEngine::TiQGeoTiledMappingManagerEngine(const QVariantM
     cameraCaps.setMaximumZoomLevel(20.0);
     cameraCaps.setSupportsBearing(true);
     cameraCaps.setSupportsTilting(true);
-    //    cameraCaps.setMinimumTilt(0);
-    //    cameraCaps.setMaximumTilt(80);
-    //    cameraCaps.setMinimumFieldOfView(20.0);
-    //    cameraCaps.setMaximumFieldOfView(120.0);
-    //    cameraCaps.setOverzoomEnabled(true);
+    cameraCaps.setMinimumTilt(0);
+    cameraCaps.setMaximumTilt(80);
+    cameraCaps.setMinimumFieldOfView(20.0);
+    cameraCaps.setMaximumFieldOfView(120.0);
+    cameraCaps.setOverzoomEnabled(true);
     setCameraCapabilities(cameraCaps);
 
     setTileSize(QSize(256, 256));
 
-#define GCS_MAP_TYPE(a, b, c, d, e, f) \
-    QGeoMapType(a, b, c, d, e, f, QByteArray("TiMap"), cameraCaps)
+    QByteArray mapName = "TiMap";
+    // qt6 中，qtlocation 的mapid必须从1开始,有序是因为我们这里使用的是list
+    int mapid = 1;
+    auto urlFactory = TiMapEngine::instance()->getUrlEngine();
+    auto provider = urlFactory->getMapProviderFromId(mapid);
 
     QList<QGeoMapType> _mapList;
-    auto               _mapProviders = TiMapEngine::instance()->getUrlEngine()->getProviderTable();
-    // hash 遍历方式:查看qhash 文档
-    auto i = _mapProviders.begin();
-    while (i != _mapProviders.end()) {
-        _mapList << GCS_MAP_TYPE(i.value()->getMapStyle(), i.key(), i.key(), false, false,
-                                 TiMapEngine::instance()->getUrlEngine()->getIdFromType(i.key()));
-        ++i;
+    while (provider) {
+        QString providerType = urlFactory->getTypeFromId(mapid);
+        _mapList.append(QGeoMapType(provider->getMapStyle(),
+                                    providerType,
+                                    providerType,
+                                    false,
+                                    false,
+                                    mapid++,
+                                    mapName,
+                                    cameraCaps));
+        provider = urlFactory->getMapProviderFromId(mapid);
+        LOG_DEBUG() << providerType;
     }
 
     setSupportedMapTypes(_mapList);

@@ -1,7 +1,7 @@
-﻿import QtQuick 2.0
-import QtLocation 5.6
-import QtPositioning 5.6
-import QtGraphicalEffects 1.12
+﻿import QtQuick
+import QtLocation
+import QtPositioning
+import Qt5Compat.GraphicalEffects
 
 //图片
 MapQuickItem{
