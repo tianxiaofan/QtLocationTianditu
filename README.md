@@ -1,4 +1,4 @@
-# QtLocationTianditu
+﻿# QtLocationTianditu
 QtLocation学习及天地图 插件
 
 + 子项目Map01 - Map04 为QtLocation的学习过程,如何调用map,文档可查看
@@ -15,5 +15,6 @@ csdn:https://blog.csdn.net/ihmhm12345/category_11174178.html
 + Qt6版本使用cmake管理项目
 + 需要Qt5版本的,切换tag 到 qt5.15.2 即可
 + Qt5支持版本使用的pro管理项目
++ 注意天地图所使用的密钥是我个人申请的密钥，每天只有1W张图源，容易用没，使用的时候请自行去天地图官方注册账号申请密钥，存放密钥位置[密钥](https://github.com/tianxiaofan/QtLocationTianditu/blob/69df456ba9a052e1bd83d558c4b5d56ba3aca37f/Map06/TiMap/titianditumapprovider.cpp#L28)
 
 + 我的CSDN原文链接：https://blog.csdn.net/ihmhm12345/article/details/119078652
